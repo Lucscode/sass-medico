@@ -8,7 +8,7 @@ import { ptBR } from 'date-fns/locale';
 import toast from 'react-hot-toast';
 import { medicoData } from '@/data/medico';
 import { conveniosData } from '@/data/convenios';
-import { Agendamento } from '@/types';
+import { Agendamento as AgendamentoType } from '@/types';
 
 interface FormData {
   nome: string;
@@ -24,7 +24,7 @@ export default function Agendamento() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [step, setStep] = useState<'calendar' | 'form' | 'confirmation'>('calendar');
-  const [agendamento, setAgendamento] = useState<Agendamento | null>(null);
+  const [agendamento, setAgendamento] = useState<AgendamentoType | null>(null);
 
   const {
     register,
@@ -94,7 +94,7 @@ export default function Agendamento() {
       return;
     }
 
-    const novoAgendamento: Agendamento = {
+    const novoAgendamento: AgendamentoType = {
       id: Date.now().toString(),
       medicoId: medicoData.id,
       paciente: {
