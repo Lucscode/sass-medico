@@ -66,11 +66,15 @@ export default function Hero() {
           {/* Foto do Médico */}
           <div className="relative">
             <div className="relative">
-              <img
-                src={medicoData.foto}
-                alt={medicoData.nome}
-                className="w-full h-96 object-cover rounded-2xl shadow-2xl"
-              />
+                             <img
+                 src={medicoData.foto}
+                 alt={medicoData.nome}
+                 className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+                 onError={(e) => {
+                   // Fallback para uma imagem padrão se a foto não carregar
+                   e.currentTarget.src = 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face';
+                 }}
+               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
             </div>
             

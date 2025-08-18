@@ -104,5 +104,5 @@ export const medicoData: Medico = {
     'Especialista em doenças reumáticas e autoimunes',
     'Experiência em artrite reumatoide, lúpus e fibromialgia',
   ],
-  foto: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
+  foto: '/images/dra-karla-profile.jpg',
 };
