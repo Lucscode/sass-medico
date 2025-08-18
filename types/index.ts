@@ -3,6 +3,7 @@ export interface Medico {
   nome: string;
   especialidade: string;
   crm: string;
+  rqe?: string;
   email: string;
   telefone: string;
   whatsapp: string;

@@ -23,7 +23,7 @@ export default function Header() {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <h1 className="text-2xl font-bold text-primary-600">
-                Dr. {medicoData.nome.split(' ')[1]}
+                Dra. {medicoData.nome.split(' ')[1]}
               </h1>
               <p className="text-sm text-secondary-600">{medicoData.especialidade}</p>
             </div>
@@ -55,6 +55,12 @@ export default function Header() {
             >
               Agendar Consulta
             </button>
+            <a
+              href="/admin"
+              className="text-secondary-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              Admin
+            </a>
           </nav>
 
           {/* Mobile menu button */}
@@ -96,6 +102,12 @@ export default function Header() {
               >
                 Agendar Consulta
               </button>
+              <a
+                href="/admin"
+                className="text-secondary-700 hover:text-primary-600 block px-3 py-2 text-base font-medium"
+              >
+                Admin
+              </a>
             </div>
           </div>
         )}

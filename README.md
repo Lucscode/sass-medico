@@ -1,13 +1,13 @@
-# Sistema SaaS de Agendamento Médico
+# Sistema SaaS de Agendamento Médico - Dra. Karla Toledo Martins
 
-Um sistema completo de agendamento médico desenvolvido com Next.js, TypeScript e Tailwind CSS. O sistema permite que pacientes agendem consultas online de forma simples e intuitiva.
+Um sistema completo de agendamento médico desenvolvido com Next.js, TypeScript e Tailwind CSS. O sistema permite que pacientes agendem consultas online de forma simples e intuitiva com a Dra. Karla Toledo Martins, reumatologista em Campinas.
 
 ## 🚀 Funcionalidades
 
 ### Para Pacientes
-- **Portfólio do Médico**: Visualização completa das informações do médico
+- **Portfólio da Médica**: Visualização completa das informações da Dra. Karla Toledo Martins
 - **Horários de Atendimento**: Consulta dos horários disponíveis
-- **Localização**: Mapa e informações de localização da clínica
+- **Localização**: Mapa e informações de localização da clínica Sensi Saúde
 - **Agendamento Online**: Sistema completo de agendamento com:
   - Seleção de data e horário
   - Formulário de dados do paciente
@@ -15,7 +15,7 @@ Um sistema completo de agendamento médico desenvolvido com Next.js, TypeScript 
   - Confirmação do agendamento
 - **Notificações**: Recebimento de confirmações por e-mail
 
-### Para Médicos
+### Para a Médica
 - **Notificações Automáticas**: Recebe notificações de novos agendamentos
 - **Gestão de Horários**: Controle dos horários de atendimento
 - **Informações de Contato**: Dados completos para contato
@@ -93,11 +93,11 @@ http://localhost:3000
 
 ## 📋 Funcionalidades Detalhadas
 
-### 1. Portfólio do Médico
-- Informações pessoais e profissionais
-- Especialidades e formação
-- Experiência profissional
-- Certificações
+### 1. Portfólio da Médica
+- Informações pessoais e profissionais da Dra. Karla Toledo Martins
+- Especialidades em Reumatologia
+- Formação e experiência profissional
+- Certificações e doenças tratadas
 
 ### 2. Horários de Atendimento
 - Visualização dos horários por dia da semana
@@ -105,7 +105,7 @@ http://localhost:3000
 - Política de cancelamento
 
 ### 3. Localização
-- Endereço completo da clínica
+- Endereço completo da clínica Sensi Saúde em Campinas
 - Informações de contato
 - Horário de funcionamento
 - Instruções de como chegar
@@ -146,15 +146,17 @@ O sistema é totalmente responsivo e funciona em:
 
 ## 🔧 Configuração
 
-### Dados do Médico
-Edite o arquivo `data/medico.ts` para personalizar:
-- Informações pessoais
+### Dados da Médica
+O arquivo `data/medico.ts` já está configurado com os dados da Dra. Karla Toledo Martins:
+- Informações pessoais e profissionais
 - Horários de atendimento
-- Endereço
-- Especialidades
+- Endereço da clínica Sensi Saúde
+- Especialidades em Reumatologia
 
 ### Convênios
-Edite o arquivo `data/convenios.ts` para adicionar/remover convênios.
+O arquivo `data/convenios.ts` está configurado com os convênios aceitos pela Dra. Karla:
+- Unimed
+- Atendimento Particular
 
 ## 📧 Notificações
 

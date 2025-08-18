@@ -135,18 +135,18 @@ export default function Localizacao() {
         {/* Informações Adicionais */}
         <div className="mt-12 grid md:grid-cols-3 gap-6">
           <div className="card text-center">
-            <div className="text-2xl font-bold text-primary-600 mb-2">Estacionamento</div>
-            <p className="text-secondary-700">Gratuito para pacientes</p>
+            <div className="text-2xl font-bold text-primary-600 mb-2">Sensi Saúde</div>
+            <p className="text-secondary-700">Clínica especializada em Campinas</p>
           </div>
           
           <div className="card text-center">
-            <div className="text-2xl font-bold text-primary-600 mb-2">Acessibilidade</div>
-            <p className="text-secondary-700">Rampa e elevador disponíveis</p>
+            <div className="text-2xl font-bold text-primary-600 mb-2">1º Andar</div>
+            <p className="text-secondary-700">Consultório de fácil acesso</p>
           </div>
           
           <div className="card text-center">
-            <div className="text-2xl font-bold text-primary-600 mb-2">Transporte</div>
-            <p className="text-secondary-700">Próximo ao metrô e ônibus</p>
+            <div className="text-2xl font-bold text-primary-600 mb-2">Vila Bella</div>
+            <p className="text-secondary-700">Bairro residencial tranquilo</p>
           </div>
         </div>
       </div>

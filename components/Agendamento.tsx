@@ -9,6 +9,8 @@ import toast from 'react-hot-toast';
 import { medicoData } from '@/data/medico';
 import { conveniosData } from '@/data/convenios';
 import { Agendamento as AgendamentoType } from '@/types';
+import { saveAgendamento, isHorarioDisponivel } from '@/lib/storage';
+import { sendEmailNotification, sendPatientConfirmation, sendWhatsAppNotification } from '@/lib/notifications';
 
 interface FormData {
   nome: string;
@@ -88,9 +90,17 @@ export default function Agendamento() {
     setStep('form');
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     if (!selectedDate || !selectedTime) {
       toast.error('Por favor, selecione uma data e horário');
+      return;
+    }
+
+    const dataFormatada = format(selectedDate, 'yyyy-MM-dd');
+    
+    // Verificar se o horário ainda está disponível
+    if (!isHorarioDisponivel(dataFormatada, selectedTime)) {
+      toast.error('Este horário não está mais disponível. Por favor, escolha outro.');
       return;
     }
 
@@ -105,25 +115,57 @@ export default function Agendamento() {
         convenio: data.particular ? undefined : data.convenio,
         particular: data.particular,
       },
-      data: format(selectedDate, 'yyyy-MM-dd'),
+      data: dataFormatada,
       horario: selectedTime,
       status: 'pendente',
       observacoes: data.observacoes,
       createdAt: new Date().toISOString(),
     };
 
-    setAgendamento(novoAgendamento);
-    setStep('confirmation');
-    
-    // Simular envio de notificação
-    toast.success('Agendamento realizado com sucesso!');
-    
-    // Aqui você enviaria a notificação para o médico
-    console.log('Notificação enviada para o médico:', {
-      to: medicoData.email,
-      subject: 'Novo Agendamento',
-      message: `Novo agendamento para ${data.nome} ${data.sobrenome} em ${format(selectedDate, 'dd/MM/yyyy')} às ${selectedTime}`
-    });
+    try {
+      // Salvar agendamento
+      const saved = saveAgendamento(novoAgendamento);
+      if (!saved) {
+        toast.error('Erro ao salvar agendamento. Tente novamente.');
+        return;
+      }
+
+      // Enviar notificações
+      const loadingToast = toast.loading('Enviando notificações...');
+      
+      const [emailResult, patientEmailResult, whatsappResult] = await Promise.allSettled([
+        sendEmailNotification(novoAgendamento),
+        sendPatientConfirmation(novoAgendamento),
+        sendWhatsAppNotification(novoAgendamento)
+      ]);
+
+      toast.dismiss(loadingToast);
+
+      // Verificar resultados
+      const notifications = [];
+      if (emailResult.status === 'fulfilled' && emailResult.value.success) {
+        notifications.push('Email para médico');
+      }
+      if (patientEmailResult.status === 'fulfilled' && patientEmailResult.value.success) {
+        notifications.push('Email para paciente');
+      }
+      if (whatsappResult.status === 'fulfilled' && whatsappResult.value.success) {
+        notifications.push('WhatsApp');
+      }
+
+      if (notifications.length > 0) {
+        toast.success(`Agendamento realizado! Notificações enviadas: ${notifications.join(', ')}`);
+      } else {
+        toast.success('Agendamento realizado! (Notificações em processamento)');
+      }
+
+      setAgendamento(novoAgendamento);
+      setStep('confirmation');
+
+    } catch (error) {
+      console.error('Erro ao processar agendamento:', error);
+      toast.error('Erro ao processar agendamento. Tente novamente.');
+    }
   };
 
   return (

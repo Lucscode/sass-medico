@@ -9,11 +9,11 @@ export default function Sobre() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-secondary-900 mb-4">
-            Sobre o Dr. {medicoData.nome.split(' ')[1]}
+            Sobre a Dra. {medicoData.nome.split(' ')[1]}
           </h2>
           <p className="text-lg text-secondary-600 max-w-3xl mx-auto">
-            Cardiologista especializado com mais de 15 anos de experiência em diagnóstico 
-            e tratamento de doenças cardiovasculares.
+            Reumatologista especializada com vasta experiência no diagnóstico e tratamento 
+            de doenças reumáticas e autoimunes.
           </p>
         </div>
 
@@ -61,30 +61,30 @@ export default function Sobre() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-primary-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-primary-800 mb-2">Ecocardiografia</h4>
+                  <h4 className="font-semibold text-primary-800 mb-2">Artrite Reumatoide</h4>
                   <p className="text-sm text-primary-700">
-                    Exame de ultrassom do coração para diagnóstico de doenças cardíacas
+                    Diagnóstico e tratamento de artrite reumatoide
                   </p>
                 </div>
                 
                 <div className="bg-primary-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-primary-800 mb-2">Eletrocardiografia</h4>
+                  <h4 className="font-semibold text-primary-800 mb-2">Lúpus Eritematoso</h4>
                   <p className="text-sm text-primary-700">
-                    Registro da atividade elétrica do coração
+                    Tratamento de doenças autoimunes como lúpus
                   </p>
                 </div>
                 
                 <div className="bg-primary-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-primary-800 mb-2">Hipertensão Arterial</h4>
+                  <h4 className="font-semibold text-primary-800 mb-2">Fibromialgia</h4>
                   <p className="text-sm text-primary-700">
-                    Tratamento e controle da pressão alta
+                    Diagnóstico e tratamento da fibromialgia
                   </p>
                 </div>
                 
                 <div className="bg-primary-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-primary-800 mb-2">Doenças Cardiovasculares</h4>
+                  <h4 className="font-semibold text-primary-800 mb-2">Osteoporose</h4>
                   <p className="text-sm text-primary-700">
-                    Diagnóstico e tratamento de doenças do coração
+                    Prevenção e tratamento da osteoporose
                   </p>
                 </div>
               </div>
@@ -98,15 +98,15 @@ export default function Sobre() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <div className="w-3 h-3 bg-primary-600 rounded-full"></div>
-                  <span className="text-secondary-700">Sociedade Brasileira de Cardiologia</span>
+                  <span className="text-secondary-700">Sociedade Brasileira de Reumatologia</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-3 h-3 bg-primary-600 rounded-full"></div>
-                  <span className="text-secondary-700">Especialização em Ecocardiografia</span>
+                  <span className="text-secondary-700">Especialização em Doenças Autoimunes</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-3 h-3 bg-primary-600 rounded-full"></div>
-                  <span className="text-secondary-700">Mestrado em Cardiologia - USP</span>
+                  <span className="text-secondary-700">Residência em Reumatologia - UNICAMP</span>
                 </div>
               </div>
             </div>

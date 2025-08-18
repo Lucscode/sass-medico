@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Sobre from '@/components/Sobre';
+import DoencasTratadas from '@/components/DoencasTratadas';
 import Horarios from '@/components/Horarios';
 import Localizacao from '@/components/Localizacao';
 import Agendamento from '@/components/Agendamento';
@@ -12,6 +13,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Sobre />
+      <DoencasTratadas />
       <Horarios />
       <Localizacao />
       <Agendamento />

@@ -18,7 +18,7 @@ export default function Hero() {
                 {medicoData.especialidade}
               </p>
               <p className="text-secondary-600 text-lg">
-                CRM: {medicoData.crm}
+                {medicoData.crm} • {medicoData.rqe}
               </p>
             </div>
 
@@ -79,8 +79,8 @@ export default function Hero() {
               <div className="flex items-center space-x-2">
                 <Award className="text-primary-600" size={24} />
                 <div>
-                  <p className="font-semibold text-secondary-900">Especialista</p>
-                  <p className="text-sm text-secondary-600">15+ anos de experiência</p>
+                  <p className="font-semibold text-secondary-900">Reumatologista</p>
+                  <p className="text-sm text-secondary-600">Especialista em doenças reumáticas</p>
                 </div>
               </div>
             </div>
