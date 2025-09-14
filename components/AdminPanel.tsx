@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar, Clock, User, Mail, Phone, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
+import { Calendar, Clock, User, Mail, Phone, CheckCircle, XCircle, RefreshCw, LogOut } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 import { getAgendamentos, updateAgendamentoStatus, exportAgendamentos } from '@/lib/storage';
 import { Agendamento } from '@/types';
 
@@ -12,10 +13,35 @@ export default function AdminPanel() {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   const [filter, setFilter] = useState<'todos' | 'pendente' | 'confirmado' | 'cancelado'>('todos');
   const [loading, setLoading] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const router = useRouter();
+
+  // Verificar autenticação
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/verify');
+        if (response.ok) {
+          setAuthenticated(true);
+        } else {
+          router.push('/admin/login');
+        }
+      } catch (error) {
+        router.push('/admin/login');
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+    
+    checkAuth();
+  }, [router]);
 
   useEffect(() => {
-    loadAgendamentos();
-  }, []);
+    if (authenticated) {
+      loadAgendamentos();
+    }
+  }, [authenticated]);
 
   const loadAgendamentos = () => {
     const allAgendamentos = getAgendamentos();
@@ -41,6 +67,16 @@ export default function AdminPanel() {
       toast.error('Erro ao atualizar status');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      router.push('/admin/login');
+      toast.success('Logout realizado com sucesso');
+    } catch (error) {
+      toast.error('Erro ao fazer logout');
     }
   };
 
@@ -78,15 +114,43 @@ export default function AdminPanel() {
     }
   };
 
+  // Mostrar loading enquanto verifica autenticação
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Verificando autenticação...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Se não autenticado, não renderizar nada (será redirecionado)
+  if (!authenticated) {
+    return null;
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-secondary-900 mb-4">
-          Painel Administrativo
-        </h1>
-        <p className="text-secondary-600">
-          Gerencie os agendamentos dos pacientes
-        </p>
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <h1 className="text-3xl font-bold text-secondary-900">
+              Painel Administrativo
+            </h1>
+            <p className="text-secondary-600">
+              Gerencie os agendamentos dos pacientes
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Sair</span>
+          </button>
+        </div>
       </div>
 
       {/* Filtros e Ações */}

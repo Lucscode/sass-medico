@@ -1,15 +1,18 @@
 import { Agendamento } from '@/types';
+import { encryptData, decryptData } from './encryption';
 
 // Chave para localStorage
 const STORAGE_KEY = 'sass_medico_agendamentos';
 
-// Salvar agendamento no localStorage
+// Salvar agendamento no localStorage (com criptografia)
 export const saveAgendamento = (agendamento: Agendamento): boolean => {
   try {
     const existingAgendamentos = getAgendamentos();
     const updatedAgendamentos = [...existingAgendamentos, agendamento];
     
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedAgendamentos));
+    // Criptografar dados antes de salvar
+    const encryptedData = encryptData(JSON.stringify(updatedAgendamentos));
+    localStorage.setItem(STORAGE_KEY, encryptedData);
     return true;
   } catch (error) {
     console.error('Erro ao salvar agendamento:', error);
@@ -17,11 +20,20 @@ export const saveAgendamento = (agendamento: Agendamento): boolean => {
   }
 };
 
-// Buscar todos os agendamentos
+// Buscar todos os agendamentos (com descriptografia)
 export const getAgendamentos = (): Agendamento[] => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    if (!stored) return [];
+    
+    // Tentar descriptografar dados
+    try {
+      const decryptedData = decryptData(stored);
+      return JSON.parse(decryptedData);
+    } catch {
+      // Se falhar na descriptografia, tentar como JSON normal (dados antigos)
+      return JSON.parse(stored);
+    }
   } catch (error) {
     console.error('Erro ao buscar agendamentos:', error);
     return [];
@@ -47,7 +59,9 @@ export const updateAgendamentoStatus = (id: string, status: Agendamento['status'
       ag.id === id ? { ...ag, status } : ag
     );
     
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedAgendamentos));
+    // Criptografar dados antes de salvar
+    const encryptedData = encryptData(JSON.stringify(updatedAgendamentos));
+    localStorage.setItem(STORAGE_KEY, encryptedData);
     return true;
   } catch (error) {
     console.error('Erro ao atualizar agendamento:', error);
@@ -84,7 +98,9 @@ export const cleanupOldAgendamentos = (): void => {
       return agendamentoDate > thirtyDaysAgo;
     });
     
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredAgendamentos));
+    // Criptografar dados antes de salvar
+    const encryptedData = encryptData(JSON.stringify(filteredAgendamentos));
+    localStorage.setItem(STORAGE_KEY, encryptedData);
   } catch (error) {
     console.error('Erro ao limpar agendamentos antigos:', error);
   }
@@ -105,7 +121,9 @@ export const exportAgendamentos = (): string => {
 export const importAgendamentos = (data: string): boolean => {
   try {
     const agendamentos = JSON.parse(data);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(agendamentos));
+    // Criptografar dados antes de salvar
+    const encryptedData = encryptData(JSON.stringify(agendamentos));
+    localStorage.setItem(STORAGE_KEY, encryptedData);
     return true;
   } catch (error) {
     console.error('Erro ao importar agendamentos:', error);

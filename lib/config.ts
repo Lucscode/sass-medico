@@ -8,10 +8,12 @@ export const config = {
     userId: process.env.NEXT_PUBLIC_EMAILJS_USER_ID || '',
   },
 
-  // WhatsApp Business API
+  // WhatsApp Business API - MOVER PARA BACKEND!
   whatsapp: {
-    apiKey: process.env.NEXT_PUBLIC_WHATSAPP_API_KEY || '',
-    phoneNumber: process.env.NEXT_PUBLIC_WHATSAPP_PHONE || '',
+    // ⚠️ ATENÇÃO: Estas chaves NÃO devem ser públicas!
+    // Mover para API routes do Next.js
+    apiKey: process.env.WHATSAPP_API_KEY || '',
+    phoneNumber: process.env.WHATSAPP_PHONE || '',
   },
 
   // Google Maps
